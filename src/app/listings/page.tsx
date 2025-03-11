@@ -1,24 +1,24 @@
-import React from 'react';
-
-async function getListings() {
-	const res = await fetch('http://localhost:3000/api/listings');
-
-	if (!res.ok) {
-		throw new Error('Failed to fetch data');
-	}
-	return res.json();
-
-}
+import React from 'react'
+import { getPayload } from 'payload'
+import config from '@payload-config'
+import Link from 'next/link'
 
 export default async function ListingsPage() {
-	const listings = await getListings();
+	const payload = await getPayload({ config })
+
+	const listings = await payload.find({
+		collection: 'listings',
+	})
+
 	return (
 		<div>
 			<h1>Listings</h1>
 			<ul>
 				{listings.docs.map((listing) => (
 					<li key={listing.id}>
-						<h2>{listing.title}</h2>
+						<Link href={`/listings/${listing.id}`}>
+							<h2>{listing.title}</h2>
+						</Link>
 						<span>{listing.description}</span>
 					</li>
 				))}

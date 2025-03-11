@@ -25,9 +25,6 @@ export default buildConfig({
 	  Media,
 	  {
 		  slug: 'listings',
-		  access: {
-			  read: () => true,
-		  },
 		  admin: {
 			  useAsTitle: 'title',
 		  },
